@@ -17,7 +17,7 @@ const familyTree = [
           {
             id: "2e6d866e",
             name: "Carol",
-            age: 12, children:[{id: '1111', name:'Syket', age: 23232}]
+            age: 12, children: [{ id: '1111', name: 'Syket', age: 23232 }]
           },
           {
             id: "e48a27ad",
@@ -91,22 +91,50 @@ const familyTree = [
 ];
 
 
-function getAllMembers(members){
-  console.log('calling')
-   let children = [];
+// function getAllMembers(members){
+//   console.log('calling')
+//    let children = [];
 
-  const flatteningChildren = members.map(m => {
+//   const flatteningChildren = members.map(m => {
 
-    if(m.children && m.children.length){
-      children = [...children, ...m.children ];
+//     if(m.children && m.children.length){
+//       children = [...children, ...m.children ];
+//     }
+//     return m;
+//   })  
+
+//   return flatteningChildren.concat(children.length ? getAllMembers(children) : children);
+
+
+// }
+
+// console.log(getAllMembers(familyTree))
+
+
+
+//Recursive function
+
+
+let flattenResult = [];
+function recursiveFunction(members) {
+
+
+  for (const obj of members) {
+    // console.log(obj);
+    if (obj.children && obj.children.length) {
+
+      recursiveFunction(obj.children);
+      delete obj.children;
+      flattenResult.push(obj);
+
+    } else {
+      flattenResult.push(obj);
     }
-    return m;
-  })  
 
-  return flatteningChildren.concat(children.length ? getAllMembers(children) : children);
+  }
 
-  
+  return flattenResult;
+
 }
 
-console.log(getAllMembers(familyTree))
-
+console.log(recursiveFunction(familyTree))
